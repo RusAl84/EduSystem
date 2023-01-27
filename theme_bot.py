@@ -4,8 +4,8 @@ import get_data as gd
 
 
 bot = telebot.TeleBot('5982175377:AAE0_kRqWN6XtASVJBjtygqoMu5GMPMSXxA')
-global categories, sub_categories
-categories, sub_categories = gd.load_data()
+global categories
+categories = gd.load_data()
 global cur_cat
 cur_cat = 0
 global cur_theme
@@ -23,29 +23,31 @@ def get_text_messages(message):
         # str1 = gd.get_sub_categories(sub_categories, cur_cat)
         if str(message.text).isdigit():
             cur_cat = int(message.text)
-            str1 = gd.get_sub_categories(sub_categories, cur_cat)
+            str1 = gd.get_sub_categories(categories, cur_cat)
             cur_theme = -1
             bot.send_message(
                 message.from_user.id, str1)
         else:
             bot.send_message(
-                message.from_user.id, "не верно введен номер категорий темы")
+                message.from_user.id, "не верно введен номер раздела")
     elif cur_theme == -1:
         if str(message.text).isdigit():
             cur_theme = int(message.text)
-            data = gd.get_desc(sub_categories, cur_theme)
+            data = gd.get_desc(categories, cur_cat, cur_theme)
             cur_cat = 0
             cur_theme = 0
-            for item in data:
-                desc = item[0]
-                img = item[1]
-                bot.send_message(
-                    message.from_user.id, desc)
-                bot.send_photo(chat_id=message.from_user.id, photo=open(img, 'rb'))
+            bot.send_message(
+                message.from_user.id, data)
+            # for item in data:
+            #     desc = item[0]
+            #     img = item[1]
+            #     bot.send_message(
+            #         message.from_user.id, desc)
+            # bot.send_photo(chat_id=message.from_user.id, photo=open(img, 'rb'))
 
         else:
             bot.send_message(
-                message.from_user.id, "не верно введен номер достопремичательности")
+                message.from_user.id, "не верно введен номер темы")
     elif str(message.text).lower() == "/quest":
         cur_cat = -1
         str1 = gd.get_categories(categories)

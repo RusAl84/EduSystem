@@ -48,14 +48,14 @@ def get_text_messages(message):
         else:
             bot.send_message(
                 message.from_user.id, "не верно введен номер темы")
-    elif str(message.text).lower() == "/quest":
+    elif str(message.text).lower() == "/info":
         cur_cat = -1
         str1 = gd.get_categories(categories)
         bot.send_message(
             message.from_user.id, str1)
     elif str(message.text).lower() == "/help":
         bot.send_message(
-            message.from_user.id, "Описание проекта \n Для того чтобы начать введите слово /quest.")
+            message.from_user.id, "Описание проекта \n Для того чтобы получить информацию введите слово /info. \n Для того чтобы проверить свои знания введите слово /test.")
     else:
         bot.send_message(message.from_user.id, "Для информации введите /help.")
 

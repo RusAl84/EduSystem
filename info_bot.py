@@ -1,15 +1,14 @@
 ﻿from webbrowser import get
 import telebot
 import get_data as gd
+import tester as ts
 
 
-bot = telebot.TeleBot('5982175377:AAE0_kRqWN6XtASVJBjtygqoMu5GMPMSXxA')
-global categories
+bot = telebot.TeleBot('5982175377:AAGJU-Qn8gPejnDymRFTpz_-bH_low5aTBI')
+global categories, test_data, test_num, mark, cur_cat, cur_theme
 categories = gd.load_data()
-global cur_cat
-cur_cat = 0
-global cur_theme
-cur_theme = 0
+test_data = ts.load_data()
+cur_cat = cur_theme = test_num = mark = 0
 
 
 @bot.message_handler(content_types=['text'])
@@ -38,19 +37,21 @@ def get_text_messages(message):
             cur_theme = 0
             bot.send_message(
                 message.from_user.id, data)
-            # for item in data:
-            #     desc = item[0]
-            #     img = item[1]
-            #     bot.send_message(
-            #         message.from_user.id, desc)
-            # bot.send_photo(chat_id=message.from_user.id, photo=open(img, 'rb'))
-
         else:
             bot.send_message(
                 message.from_user.id, "не верно введен номер темы")
+    elif test_num >= 1:
+            if str(message.text).isdigit():
+                mark += int(message.text)
+            
     elif str(message.text).lower() == "/info":
         cur_cat = -1
         str1 = gd.get_categories(categories)
+        bot.send_message(
+            message.from_user.id, str1)
+    elif str(message.text).lower() == "/test":
+        test_num = 1
+        str1 = ts.get_quest(test_data, test_num)
         bot.send_message(
             message.from_user.id, str1)
     elif str(message.text).lower() == "/help":
@@ -61,6 +62,5 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    cur_cat = 0
-    cur_theme = 0
+
     bot.polling(none_stop=True, interval=0)

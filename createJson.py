@@ -3,9 +3,9 @@ data = []
 quest1 = {}
 quest1["quest"] = "Что такое ёжик?"
 Answers = [
-    ["птица", 0],
-    ["человек", 0],
-    ["млекопитающее", 1]
+    ["птица", False],
+    ["человек", False],
+    ["млекопитающее", True]
 ]
 quest1["answers"] = Answers
 data.append(quest1)

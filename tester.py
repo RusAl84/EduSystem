@@ -11,30 +11,25 @@ def load_data():
 
 
 def get_question(test_data, num):
-    str1 = test_data[num]['question1']
+    str1 = test_data[num]['question']+"\n"
     answers = test_data[num]['answers']
+    num = 0
     for answer in answers:
         num += 1
-        str1 += f" {num} - {answer[0]}"
+        str1 += f" {num} - {answer[0]} \n"
     str1 += "Введите номер верного ответа:"
+    return str1
+    
+def check_answer(test_data, num, answer_num):
+    result = 0
+    if num < len(test_data):
+        answers = test_data[num]['answers']
+        if answer_num >= 1 and answer_num <= len(answers):
+            if answers[answer_num-1][1] == True:
+                result = 1
+    return result
 
 
 if __name__ == '__main__':
     test_data = load_data()
     quest = test_data[0]
-    print(quest["quest"])
-    answers = quest["answers"]
-    num = 0
-    for answer in answers:
-        num += 1
-        print(f"{num} {answer[0]}")
-    print("Введите номер верного ответа:")
-
-    answer_num = int(input())-1
-
-    if answer_num < 1 and answer_num > len(answers):
-        print("Не правильно")
-    elif answers[answer_num][1] == True:
-        print("Правильно")
-    else:
-        print("Не правильно")

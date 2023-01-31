@@ -4,7 +4,7 @@ import get_data as gd
 import tester as ts
 
 
-bot = telebot.TeleBot('5982175377:AAGJU-Qn8gPejnDymRFTpz_-bH_')
+bot = telebot.TeleBot('5982175377:AAGJU-Qn8gPejnDymRFTpz_-bH_low5aTBI')
 global categories, test_data, test_num, mark, cur_cat, cur_theme
 categories = gd.load_data()
 test_data = ts.load_data()
